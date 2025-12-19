@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BEMSA Bio Data Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="BEMSAlogo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+:root{
+  --green-dark:#022c22;
+  --green-main:#059669;
+  --green-light:#10b981;
+  --bg-glass:rgba(255, 255, 255, 0.92);
+  --yellow-accent: #fbbf24;
+}
+
+*{box-sizing:border-box}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #022c22;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpath fill='%23ffffff' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 35c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57 43c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM16 32c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm29 42c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm34-56c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-2-2c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-44 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-20 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm10 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'/%3E%3Cpath fill='%23ffffff' d='M92 71h-3v-3c0-1.105-.895-2-2-2s-2 .895-2 2v3h-3c-1.105 0-2 .895-2 2s.895 2 2 2h3v3c0 1.105.895 2 2 2s2-.895 2-2v-3h3c1.105 0 2-.895 2-2s-.895-2-2-2zM24 46h-3v-3c0-1.105-.895-2-2-2s-2 .895-2 2v3h-3c-1.105 0-2 .895-2 2s.895 2 2 2h3v3c0 1.105.895 2 2 2s2-.895 2-2v-3h3c1.105 0 2-.895 2-2s-.895-2-2-2z'/%3E%3C/g%3E%3C/svg%3E"), 
+    linear-gradient(135deg, #022c22 0%, #064e3b 50%, #0f766e 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+header img { width: 100px; margin-bottom: 10px; }
+
+header h1 {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+main { max-width: 850px; margin: auto; padding: 20px; }
+
+.form-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.step { display: none; }
+.step.active { display: block; animation: fadeIn 0.5s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-title {
+  font-size: 24px;
+  color: var(--green-dark);
+  font-weight: 700;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-title::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--green-main);
+  border-radius: 10px;
+}
+
+.field { margin-bottom: 25px; }
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.field input, .field select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1.5px solid #d1d5db;
+  background: white;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.field input:disabled, .field select:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.btn-row { display: flex; gap: 15px; margin-top: 30px; }
+
+.btn {
+  flex: 1;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+
+.next-btn { background: var(--green-main); color: white; }
+.next-btn:hover { background: var(--green-dark); }
+.prev-btn { background: white; color: #4b5563; border: 1.5px solid #d1d5db; }
+
+/* SUCCESS PAGE STYLE */
+#success-card {
+  display: none;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.success-icon {
+  font-size: 80px;
+  color: var(--green-main);
+  margin-bottom: 20px;
+}
+
+/* LOADER STYLES */
+#loader-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(2, 44, 34, 0.85);
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--yellow-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.badge {
+  margin-top: 40px;
+  padding: 15px;
+  background: #ecfdf5;
+  border-radius: 12px;
+  color: var(--green-dark);
+  font-size: 13px;
+  text-align: center;
+  font-weight: 600;
+}
+
+footer { text-align: center; padding: 40px; color: white; font-size: 14px; opacity: 0.9; }
+footer a {
+  color: var(--yellow-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader-overlay">
+  <div class="spinner"></div>
+  <p>Securing your data...</p>
+</div>
+
+<header data-aos="fade-down">
+  <img src="BEMSAlogo.png" alt="Logo">
+  <h1>BEMSA Bio Data Portal</h1>
+  <p>Benue Medical and Dental Students Association</p>
+</header>
+
+<main>
+<div class="form-card" id="form-container" data-aos="zoom-in">
+  <form id="portalForm">
+
+    <div class="step active">
+      <div class="step-title">Personal Identity</div>
+      <div class="grid">
+        <div class="field"><label>Surname</label><input type="text" id="surname" required placeholder="Surname"></div>
+        <div class="field"><label>Other Names</label><input type="text" id="otherNames" required placeholder="Other Names"></div>
+        <div class="field"><label>Tribe</label><input type="text" id="tribe" required placeholder="e.g. Tiv, Idoma, Igede"></div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title">Academics & Location</div>
+      <div class="grid">
+        <div class="field"><label>Matric Number</label><input type="text" id="matric" required placeholder="BSU/MBBS/..."></div>
+        <div class="field">
+          <label>Level</label>
+          <select id="level" required>
+            <option value="" disabled selected>Select Level</option>
+            <option>100 Level</option>
+            <option>200 Level</option>
+            <option>300 Level</option>
+            <option>400 Level A</option>
+            <option>400 Level B</option>
+            <option>500 Level</option>
+            <option>600 Level</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>State of Origin</label>
+          <input type="text" id="state" value="Benue" readonly disabled>
+        </div>
+        <div class="field">
+          <label>LGA</label>
+          <select id="lga" required>
+            <option value="" disabled selected>Select LGA</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
+        <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-title">Emergency Contact</div>
+      <div class="grid">
+        <div class="field"><label>Phone Number... WhatsApp Recommended!</label><input type="tel" id="phone" required placeholder="080..."></div>
+        <div class="field"><label>Next of Kin</label><input type="text" id="nextOfKin" required placeholder="Full Name"></div>
+        <div class="field"><label>Parent/Guardian</label><input type="text" id="parent" required placeholder="Full Name"></div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
+        <button type="submit" id="submitBtn" class="btn next-btn">Submit Profile</button>
+      </div>
+      <div class="badge">Official BEMSA-BSU Member Verification 2025</div>
+    </div>
+
+  </form>
+</div>
+
+<div class="form-card" id="success-card">
+    <div class="success-icon">✓</div>
+    <h2 style="color:var(--green-dark); font-family:'Poppins';">Registration Successful!</h2>
+    <p style="color:#4b5563; line-height:1.6;">Your bio-data has been securely added to the BEMSA-BSU Database !.</p>
+    <div class="btn-row">
+        <button class="btn next-btn" onclick="window.location.reload()">ok</button>
+    </div>
+</div>
+</main>
+
+<footer>
+  © BEMSA-BSU • Since 1993<br>
+  Powered by <a href="#">Tadokk</a>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:1000, once:true});
+
+let currentStep = 0;
+const steps = document.querySelectorAll('.step');
+
+function nextStep() {
+    const inputs = steps[currentStep].querySelectorAll('input:not([disabled]), select:not([disabled])');
+    let valid = true;
+    inputs.forEach(i => { if(!i.checkValidity()) { i.reportValidity(); valid = false; } });
+    
+    if(valid && currentStep < steps.length - 1) {
+        steps[currentStep].classList.remove('active');
+        currentStep++;
+        steps[currentStep].classList.add('active');
+    }
+}
+
+function prevStep() {
+    if(currentStep > 0) {
+        steps[currentStep].classList.remove('active');
+        currentStep--;
+        steps[currentStep].classList.add('active');
+    }
+}
+
+const benueLGAs = ["Agatu", "Apa", "Ado", "Buruku", "Gboko", "Guma", "Gwer East", "Gwer West", "Katsina-Ala", "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu", "Oturkpo", "Tarka", "Ukum", "Ushongo", "Vandeikya"];
+
+window.onload = function() {
+    const lgaSelect = document.getElementById('lga');
+    benueLGAs.sort().forEach(l => {
+        let opt = document.createElement('option');
+        opt.value = l;
+        opt.innerHTML = l;
+        lgaSelect.appendChild(opt);
+    });
+};
+
+document.getElementById('portalForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    document.getElementById('loader-overlay').style.display = 'flex';
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+
+    const payload = {
+        surname: document.getElementById('surname').value,
+        otherNames: document.getElementById('otherNames').value,
+        tribe: document.getElementById('tribe').value,
+        matric: document.getElementById('matric').value,
+        phone: document.getElementById('phone').value,
+        level: document.getElementById('level').value,
+        state: "Benue",
+        lga: document.getElementById('lga').value,
+        nextOfKin: document.getElementById('nextOfKin').value,
+        parent: document.getElementById('parent').value
+    };
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxr_vaf801nO0tIH8-NtZ4SN06Nt9OgYTHG020c8U86F34ONWVyh47KmCcsDQIGlv0/exec';
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors', 
+        cache: 'no-cache',
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        document.getElementById('loader-overlay').style.display = 'none';
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('success-card').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    })
+    .catch(err => {
+        document.getElementById('loader-overlay').style.display = 'none';
+        alert("Error connecting. Please check your internet.");
+        btn.disabled = false;
+        btn.innerText = "Submit Profile";
+    });
+});
+</script>
+
+</body>
+</html>
