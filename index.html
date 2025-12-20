@@ -16,6 +16,7 @@
   --green-light:#10b981;
   --bg-glass:rgba(255, 255, 255, 0.92);
   --yellow-accent: #fbbf24;
+  --red-error: #ef4444;
 }
 
 *{box-sizing:border-box}
@@ -132,16 +133,14 @@ label {
 .next-btn:hover { background: var(--green-dark); }
 .prev-btn { background: white; color: #4b5563; border: 1.5px solid #d1d5db; }
 
-/* SUCCESS PAGE STYLE */
-#success-card {
+/* FEEDBACK CARDS (Hidden by default) */
+#success-card, #duplicate-card {
   display: none;
   text-align: center;
-  padding: 50px 20px;
 }
 
-.success-icon {
+.feedback-icon {
   font-size: 80px;
-  color: var(--green-main);
   margin-bottom: 20px;
 }
 
@@ -195,7 +194,7 @@ footer a {
 
 <div id="loader-overlay">
   <div class="spinner"></div>
-  <p>Securing your data...</p>
+  <p id="loader-text">Securing your data...</p>
 </div>
 
 <header data-aos="fade-down">
@@ -205,80 +204,80 @@ footer a {
 </header>
 
 <main>
-<div class="form-card" id="form-container" data-aos="zoom-in">
-  <form id="portalForm">
-
-    <div class="step active">
-      <div class="step-title">Personal Identity</div>
-      <div class="grid">
-        <div class="field"><label>Surname</label><input type="text" id="surname" required placeholder="Surname"></div>
-        <div class="field"><label>Other Names</label><input type="text" id="otherNames" required placeholder="Other Names"></div>
-        <div class="field"><label>Tribe</label><input type="text" id="tribe" required placeholder="e.g. Tiv, Idoma, Igede"></div>
-      </div>
-      <div class="btn-row">
-        <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-title">Academics & Location</div>
-      <div class="grid">
-        <div class="field"><label>Matric Number</label><input type="text" id="matric" required placeholder="BSU/MBBS/..."></div>
-        <div class="field">
-          <label>Level</label>
-          <select id="level" required>
-            <option value="" disabled selected>Select Level</option>
-            <option>100 Level</option>
-            <option>200 Level</option>
-            <option>300 Level</option>
-            <option>400 Level A</option>
-            <option>400 Level B</option>
-            <option>500 Level</option>
-            <option>600 Level</option>
-          </select>
+  <div class="form-card" id="form-container" data-aos="zoom-in">
+    <form id="portalForm">
+      <div class="step active">
+        <div class="step-title">Personal Identity</div>
+        <div class="grid">
+          <div class="field"><label>Surname</label><input type="text" id="surname" required placeholder="Surname"></div>
+          <div class="field"><label>Other Names</label><input type="text" id="otherNames" required placeholder="Other Names"></div>
+          <div class="field"><label>Tribe</label><input type="text" id="tribe" required placeholder="e.g. Tiv, Idoma, Igede"></div>
         </div>
-        <div class="field">
-          <label>State of Origin</label>
-          <input type="text" id="state" value="Benue" readonly disabled>
-        </div>
-        <div class="field">
-          <label>LGA</label>
-          <select id="lga" required>
-            <option value="" disabled selected>Select LGA</option>
-          </select>
+        <div class="btn-row">
+          <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
         </div>
       </div>
-      <div class="btn-row">
-        <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
-        <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
-      </div>
-    </div>
 
-    <div class="step">
-      <div class="step-title">Emergency Contact</div>
-      <div class="grid">
-        <div class="field"><label>Phone Number... WhatsApp Recommended!</label><input type="tel" id="phone" required placeholder="080..."></div>
-        <div class="field"><label>Next of Kin</label><input type="text" id="nextOfKin" required placeholder="Full Name"></div>
-        <div class="field"><label>Parent/Guardian</label><input type="text" id="parent" required placeholder="Full Name"></div>
+      <div class="step">
+        <div class="step-title">Academics & Location</div>
+        <div class="grid">
+          <div class="field"><label>Matric Number</label><input type="text" id="matric" required placeholder="BSU/MBBS/..."></div>
+          <div class="field">
+            <label>Level</label>
+            <select id="level" required>
+              <option value="" disabled selected>Select Level</option>
+              <option>100 Level</option><option>200 Level</option><option>300 Level</option>
+              <option>400 Level A</option><option>400 Level B</option><option>500 Level</option><option>600 Level</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>State of Origin</label>
+            <input type="text" id="state" value="Benue" readonly disabled>
+          </div>
+          <div class="field">
+            <label>LGA</label>
+            <select id="lga" required><option value="" disabled selected>Select LGA</option></select>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
+          <button type="button" class="btn next-btn" onclick="nextStep()">Next Step</button>
+        </div>
       </div>
-      <div class="btn-row">
-        <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
-        <button type="submit" id="submitBtn" class="btn next-btn">Submit Profile</button>
+
+      <div class="step">
+        <div class="step-title">Emergency Contact</div>
+        <div class="grid">
+          <div class="field"><label>Phone Number</label><input type="tel" id="phone" required placeholder="080..."></div>
+          <div class="field"><label>Next of Kin</label><input type="text" id="nextOfKin" required placeholder="Full Name"></div>
+          <div class="field"><label>Parent/Guardian</label><input type="text" id="parent" required placeholder="Full Name"></div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn prev-btn" onclick="prevStep()">Previous</button>
+          <button type="submit" id="submitBtn" class="btn next-btn">Submit Profile</button>
+        </div>
+        <div class="badge">Official BEMSA-BSU Member Verification 2025</div>
       </div>
-      <div class="badge">Official BEMSA-BSU Member Verification 2025</div>
-    </div>
+    </form>
+  </div>
 
-  </form>
-</div>
-
-<div class="form-card" id="success-card">
-    <div class="success-icon">✓</div>
+  <div class="form-card" id="success-card">
+    <div class="feedback-icon" style="color:var(--green-main);">✓</div>
     <h2 style="color:var(--green-dark); font-family:'Poppins';">Registration Successful!</h2>
-    <p style="color:#4b5563; line-height:1.6;">Your bio-data has been securely added to the BEMSA-BSU Database !.</p>
+    <p style="color:#4b5563; line-height:1.6;">Your bio-data has been securely added to the BEMSA-BSU Database!</p>
     <div class="btn-row">
-        <button class="btn next-btn" onclick="window.location.reload()">ok</button>
+      <button class="btn next-btn" onclick="window.location.reload()">OK</button>
     </div>
-</div>
+  </div>
+
+  <div class="form-card" id="duplicate-card">
+    <div class="feedback-icon" style="color:var(--red-error);">✕</div>
+    <h2 style="color:#991b1b; font-family:'Poppins';">Already Registered!</h2>
+    <p style="color:#4b5563; line-height:1.6;">This <strong>Matriculation Number</strong> is already in our database. Double registration is not allowed.</p>
+    <div class="btn-row">
+      <button class="btn next-btn" onclick="window.location.reload()">Back to Home</button>
+    </div>
+  </div>
 </main>
 
 <footer>
@@ -297,7 +296,6 @@ function nextStep() {
     const inputs = steps[currentStep].querySelectorAll('input:not([disabled]), select:not([disabled])');
     let valid = true;
     inputs.forEach(i => { if(!i.checkValidity()) { i.reportValidity(); valid = false; } });
-    
     if(valid && currentStep < steps.length - 1) {
         steps[currentStep].classList.remove('active');
         currentStep++;
@@ -319,15 +317,13 @@ window.onload = function() {
     const lgaSelect = document.getElementById('lga');
     benueLGAs.sort().forEach(l => {
         let opt = document.createElement('option');
-        opt.value = l;
-        opt.innerHTML = l;
+        opt.value = l; opt.innerHTML = l;
         lgaSelect.appendChild(opt);
     });
 };
 
 document.getElementById('portalForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     document.getElementById('loader-overlay').style.display = 'flex';
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
@@ -345,28 +341,35 @@ document.getElementById('portalForm').addEventListener('submit', function(e) {
         parent: document.getElementById('parent').value
     };
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxr_vaf801nO0tIH8-NtZ4SN06Nt9OgYTHG020c8U86F34ONWVyh47KmCcsDQIGlv0/exec';
+  
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzMprzR2rIjHgr9CtMj7tE0HVKFEoDDY9igDJh_jSnNQMjkk2SR33iRByyXcjCWysQz/exec';
 
     fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors', 
-        cache: 'no-cache',
+        mode: 'cors', // Crucial for reading the "Duplicate" response
         body: JSON.stringify(payload)
     })
-    .then(() => {
+    .then(response => response.json())
+    .then(data => {
         document.getElementById('loader-overlay').style.display = 'none';
-        document.getElementById('form-container').style.display = 'none';
-        document.getElementById('success-card').style.display = 'block';
+        if(data.result === "success") {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-card').style.display = 'block';
+        } else if (data.message === "Duplicate") {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('duplicate-card').style.display = 'block';
+        } else {
+            alert("System Error: " + data.message);
+            btn.disabled = false;
+        }
         window.scrollTo({top: 0, behavior: 'smooth'});
     })
     .catch(err => {
         document.getElementById('loader-overlay').style.display = 'none';
-        alert("Error connecting. Please check your internet.");
+        alert("Connectivity Error. Please check your data.");
         btn.disabled = false;
-        btn.innerText = "Submit Profile";
     });
 });
 </script>
-
 </body>
 </html>
